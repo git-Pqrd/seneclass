@@ -57,7 +57,10 @@ const Navigation = ({
   } = useConfigStore();
 
   const { isMobile } = useDeviceDetect();
-  useEffect(() => setDirection(isMobile ? "vertical":  "horizontal"), [isMobile]);
+  useEffect(
+    () => setDirection(isMobile ? "vertical" : "horizontal"),
+    [isMobile]
+  );
 
   return (
     <div className="mb-3 w-full flex justify-between items-center flex-col">
@@ -71,20 +74,23 @@ const Navigation = ({
       <div className="w-auto flex items-center flex-wrap md:flex-nowrap justify-between">
         <Dialog>
           <DialogTrigger asChild>
-            <Settings className="mx-4 min-w-6 min-h-6 h-6 w-6 cursor-pointer" />
+            <Settings className="ml-2 mr-6 min-w-6 min-h-6 h-6 w-6 cursor-pointer" />
           </DialogTrigger>
           <DialogContent className="max-w-[800px] max-h-[80vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Settings</DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="mb-4">
                 Adjust your SeneClass settings here
               </DialogDescription>
               <div className="flex flex-col space-y-4">
-                <div className="flex mb-2 items-center">
-                  <Speech className="mr-2" />
-                  <label htmlFor="speed-tts" className="mr-2">
-                    Speed of text to speech (*{rate})
-                  </label>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    {" "}
+                    <Speech className="mr-2" />
+                    <label htmlFor="speed-tts" className="mr-2">
+                      Speed of text to speech (*{rate})
+                    </label>{" "}
+                  </div>
                   <Slider
                     id="speed-tts"
                     defaultValue={[rate]}
@@ -92,14 +98,16 @@ const Navigation = ({
                     max={10}
                     min={0.1}
                     step={0.1}
-                    className="flex-grow"
+                    className="flex-grow max-w-[500px] ml-4"
                   />
                 </div>
-                <div className="flex items-center">
-                  <BicepsFlexed className="mr-2" />
-                  <label htmlFor="difficulty" className="mr-2">
-                    Difficulty ({difficulty}/10)
-                  </label>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <BicepsFlexed className="mr-2" />
+                    <label htmlFor="difficulty">
+                      Difficulty ({difficulty}/10)
+                    </label>
+                  </div>
                   <Slider
                     id="difficulty"
                     defaultValue={[difficulty]}
@@ -107,7 +115,7 @@ const Navigation = ({
                     max={10}
                     min={1}
                     step={1}
-                    className="flex-grow"
+                    className="flex-grow max-w-[500px] ml-4"
                   />
                 </div>
               </div>
@@ -137,7 +145,7 @@ const Navigation = ({
           <SelectContent>
             <SelectItem value="canary">Chrome Canary</SelectItem>
             <SelectItem value="chatgpt">ChatGPT</SelectItem>
-            { /** <SelectItem value="phi_35">Phi-3 (WebGPU)</SelectItem> */ }
+            {/** <SelectItem value="phi_35">Phi-3 (WebGPU)</SelectItem> */}
           </SelectContent>
         </Select>
         {usedApi === "chatgpt" && (
